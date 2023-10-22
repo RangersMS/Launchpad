@@ -1,0 +1,21 @@
+services:
+  app:
+    image: "grafana/grafana:10.1.5"
+    restart: unless-stopped
+    volumes:
+      - ./data/app/var/lib/grafana:/var/lib/grafana
+    env_file: app.env
+    user: "0"
+    ports:
+      - 3000:3000
+  
+  db:
+    image: "postgres:16.0-alpine"
+    restart: unless-stopped
+    volumes:
+      - ./data/db/var/lib/postgresql/data:/var/lib/postgresql/data
+    env_file: db.env
+
+  cache:
+    image: "redis:7.2.2-alpine"
+    restart: unless-stopped
